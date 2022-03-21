@@ -1,0 +1,31 @@
+@font-face {
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 300;
+  src: url("fonts/HindSiliguri-Light.ttf");
+}
+
+@font-face {
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 400;
+  src: url("fonts/HindSiliguri-Regular.ttf");
+}
+
+@font-face {
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 500;
+  src: url("fonts/HindSiliguri-Medium.ttf");
+}
+
+@font-face {
+  font-family: 'Hind Siliguri';
+  font-style: normal;
+  font-weight: 600;
+  src: url("fonts/HindSiliguri-Bold.ttf");
+}
+
+* {
+    font-family: 'Hind Siliguri', sans-serif;
+}

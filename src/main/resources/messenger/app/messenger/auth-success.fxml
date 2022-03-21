@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="370.0" prefWidth="326.0" style="-fx-background-color: linear-gradient(#d9e209, #fff, #2ccaeb);"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="messenger.app.messenger.controllers.AuthSuccess">
+   <stylesheets>
+      <URL value="@slyles/bootstrapfx.css" />
+      <URL value="@slyles/styles.css" />
+   </stylesheets>
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="6.0" layoutY="14.0" prefHeight="370.0" prefWidth="326.0" style="-fx-background-color: linear-gradient(#2ccaeb, #fff, #d9e209);;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label text="Account successfully created!">
+               <VBox.margin>
+                  <Insets top="30.0" />
+               </VBox.margin>
+               <styleClass>
+                  <String fx:value="h4" />
+                  <String fx:value="text-success" />
+               </styleClass>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" styleClass="h1" text="Welcome" textFill="#3c3c3c">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Label>
+            <Button onAction="#onSignButtonClick" mnemonicParsing="false" prefHeight="42.0" prefWidth="187.0" styleClass="btn-primary" text="Sign in to account">
+               <VBox.margin>
+                  <Insets top="80.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
