@@ -11,4 +11,12 @@ public class Message {
     public String toString() {
         return text;
     }
+
+    public String getText() {
+        return text;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
 }

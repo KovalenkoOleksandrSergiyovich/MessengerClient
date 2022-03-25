@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="407.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="messenger.app.messenger.controllers.CreateTalkController">
+<AnchorPane prefHeight="398.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="messenger.app.messenger.controllers.CreateTalkController">
     <stylesheets>
         <URL value="@slyles/bootstrapfx.css" />
         <URL value="@slyles/styles.css" />
@@ -21,7 +21,7 @@
     <children>
       <TabPane layoutX="53.0" layoutY="20.0" prefHeight="400.0" prefWidth="600.0" styleClass="panel" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <tabs>
-          <Tab styleClass="split-menu-btn-primary" text="Start conversation">
+          <Tab styleClass="split-menu-btn-primary" text="Start Conversation">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="365.0" prefWidth="385.0">
                      <children>
@@ -32,12 +32,20 @@
                                     <Insets top="20.0" />
                                  </VBox.margin>
                               </Label>
-                              <ComboBox prefHeight="30.0" prefWidth="300.0" promptText="Select user" styleClass="split-menu-btn">
+                              <Pane prefHeight="28.0" prefWidth="405.0">
+                                 <children>
+                                    <TextField fx:id="searchUserInput" layoutX="53.0" layoutY="-1.0" onTextChange="#onSearchUser" prefHeight="30.0" prefWidth="300.0" promptText="Search user by name" />
+                                 </children>
                                  <VBox.margin>
-                                    <Insets top="80.0" />
+                                    <Insets top="60.0" />
+                                 </VBox.margin>
+                              </Pane>
+                              <ComboBox fx:id="usersComboBox" onAction="#userSelected" prefHeight="30.0" prefWidth="300.0" promptText="Select user" styleClass="split-menu-btn">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="300.0" text="Start conversation!">
+                              <Button fx:id="startConversationBtn" mnemonicParsing="false" onAction="#onConversationButtonClick" prefHeight="32.0" prefWidth="300.0" text="Start Conversation!">
                                  <styleClass>
                                     <String fx:value="btn" />
                                     <String fx:value="btn-primary" />
@@ -51,13 +59,52 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab styleClass="split-menu-btn" text="Create public talk">
+            <Tab text="Join Talk">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox alignment="TOP_CENTER" prefHeight="365.0" prefWidth="405.0">
+                           <children>
+                              <Label styleClass="h3" text="Search and join public Talk">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </Label>
+                              <Pane prefHeight="28.0" prefWidth="405.0">
+                                 <children>
+                                    <TextField fx:id="searchTalkInput" layoutX="53.0" layoutY="-1.0" onTextChange="#onSearchTalk" prefHeight="30.0" prefWidth="300.0" promptText="Search talk by title" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="60.0" />
+                                 </VBox.margin>
+                              </Pane>
+                              <ComboBox fx:id="talksComboBox" onAction="#talkSelected" prefHeight="30.0" prefWidth="300.0" promptText="Select talk" styleClass="split-menu-btn">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </ComboBox>
+                              <Button fx:id="joinTalkBtn" mnemonicParsing="false" onAction="#onJoinButtonClick" prefHeight="32.0" prefWidth="300.0" text="Join Talk">
+                                 <styleClass>
+                                    <String fx:value="btn" />
+                                    <String fx:value="btn-primary" />
+                                 </styleClass>
+                                 <VBox.margin>
+                                    <Insets top="40.0" />
+                                 </VBox.margin>
+                              </Button>
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+          <Tab styleClass="split-menu-btn" text="Create Talk">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <VBox alignment="TOP_CENTER" prefHeight="365.0" prefWidth="405.0">
                            <children>
-                              <Label styleClass="h3" text="Create or join public talk">
+                              <Label styleClass="h3" text="Create public talk">
                                  <VBox.margin>
                                     <Insets top="20.0" />
                                  </VBox.margin>
@@ -67,10 +114,10 @@
                                     <Insets top="80.0" />
                                  </VBox.margin>
                                  <children>
-                                    <TextField layoutX="53.0" layoutY="-2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="300.0" promptText="Talk title" />
+                                    <TextField fx:id="talkTitleInput" layoutX="53.0" layoutY="-2.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="32.0" prefWidth="300.0" promptText="Talk title" />
                                  </children>
                               </Pane>
-                              <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="300.0" text="Create talk">
+                              <Button onAction="#onCreateTalkClick" mnemonicParsing="false" prefHeight="32.0" prefWidth="300.0" text="Create talk">
                                  <styleClass>
                                     <String fx:value="btn" />
                                     <String fx:value="btn-primary" />

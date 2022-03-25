@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="398.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="messenger.app.messenger.controllers.TalkViewController">
+   <children>
+      <VBox layoutX="99.0" layoutY="-16.0" prefHeight="400.0" prefWidth="416.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox prefHeight="31.0" prefWidth="416.0">
+               <children>
+                  <Label fx:id="talkTitle" prefHeight="34.0" prefWidth="217.0" text="Talk Title">
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <ScrollPane fx:id="messengerViewPanel" prefHeight="317.0" prefWidth="416.0">
+               <content>
+                  <VBox fx:id="messagesList" prefHeight="313.0" prefWidth="412.0" spacing="10.0">
+                     <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </ScrollPane>
+            <HBox alignment="BOTTOM_RIGHT" prefHeight="52.0" prefWidth="416.0">
+               <children>
+                  <Pane prefHeight="132.0" prefWidth="353.0">
+                     <children>
+                        <TextArea fx:id="messageArea" prefHeight="52.0" prefWidth="344.0" promptText="Type message" />
+                     </children>
+                  </Pane>
+                  <Button contentDisplay="BOTTOM" minWidth="65.0" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="62.0" prefWidth="80.0" text="Send">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="btn-primary" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+   <stylesheets>
+      <URL value="@slyles/bootstrapfx.css" />
+      <URL value="@slyles/styles.css" />
+   </stylesheets>
+</AnchorPane>

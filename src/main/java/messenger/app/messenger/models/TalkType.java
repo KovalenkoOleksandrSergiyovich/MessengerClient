@@ -2,5 +2,11 @@ package messenger.app.messenger.models;
 
 public enum TalkType {
     publicTalk,
-    privateTalk,
+    privateTalk;
+
+    private int value;
+
+    public int getResponse() {
+        return value;
+    }
 }

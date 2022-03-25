@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="messenger.app.messenger.controllers.MainPageController">
+<AnchorPane prefHeight="400.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="messenger.app.messenger.controllers.MainPageController">
    <stylesheets>
       <URL value="@slyles/bootstrapfx.css" />
       <URL value="@slyles/styles.css" />
@@ -25,8 +25,8 @@
                         <String fx:value="btn-primary" />
                      </styleClass>
                   </Button>
-                  <ListView fx:id="talkListView" prefHeight="342.0" prefWidth="176.0" />
-                  <Button mnemonicParsing="false" prefHeight="0.0" prefWidth="176.0" text="Log Out">
+                  <ListView fx:id="talkListView" onMouseClicked="#onListClick" prefHeight="342.0" prefWidth="176.0" />
+                  <Button mnemonicParsing="false" onAction="#onLogOutClick" prefHeight="0.0" prefWidth="176.0" text="Log Out">
                      <styleClass>
                         <String fx:value="btn" />
                         <String fx:value="btn-default" />
@@ -34,9 +34,9 @@
                   </Button>
                </children>
             </VBox>
-            <ScrollPane fx:id="mainPane" prefHeight="200.0" prefWidth="200.0">
+            <ScrollPane fx:id="mainPane" prefHeight="398.0" prefWidth="420.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="421.0" />
               </content>
             </ScrollPane>
          </items>

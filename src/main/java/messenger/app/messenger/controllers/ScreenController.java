@@ -43,13 +43,19 @@ public class ScreenController {
     }
 
     public static void activate(String name){
-        System.out.println(name);
         stage.setScene(sceneMap.get(name));
+        callInitControllerMethod(name);
+    }
+
+    public static void callInitControllerMethod(String name) {
         IBaseController controller = controllerMap.get(name);
-        System.out.println(controller);
         if (controller != null) {
             controller.screenActivated();
         }
+    }
+
+    public static IBaseController getController(String name) {
+        return controllerMap.get(name);
     }
 
     public static void updateSceneHeight(String name, double height) {

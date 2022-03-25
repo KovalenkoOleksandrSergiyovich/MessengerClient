@@ -1,27 +1,32 @@
 package messenger.app.messenger.servers;
 
+import messenger.app.messenger.models.User;
+
 import java.io.*;
 
 public class AuthToken {
     private static String token;
     private static String username;
+    private static int userId;
     private static final String tokenFile = "token.txt";
 
-    static public void setTokenAndName(String token, String username) {
+    static public void setTokenAndName(String token, User user) {
         AuthToken.token = "Bearer " + token;
-        AuthToken.username = username;
+        AuthToken.username = user.getUsername();
+        AuthToken.userId = user.getId();
         AuthToken.saveTokenToFile();
     }
 
     public AuthToken() {
         AuthToken.getTokenFromFile();
-        System.out.println(AuthToken.token);
     }
 
     public static String getToken() {
         return AuthToken.token;
     }
-
+    public static int getUserId() {
+        return AuthToken.userId;
+    }
     public static String getUsername() {
         return AuthToken.username;
     }
@@ -34,11 +39,13 @@ public class AuthToken {
         BufferedWriter out = null;
 
         try {
-            FileWriter fstream = new FileWriter(AuthToken.tokenFile, true); //true tells to append data.
+            FileWriter fstream = new FileWriter(AuthToken.tokenFile, false); //true tells to append data.
             out = new BufferedWriter(fstream);
             out.write(AuthToken.getToken());
             out.newLine();
             out.write(AuthToken.getUsername());
+            out.newLine();
+            out.write(String.valueOf(AuthToken.getUserId()));
         }
         catch (IOException e) {
             System.err.println("Error: " + e.getMessage());
@@ -63,6 +70,7 @@ public class AuthToken {
                 reader = new BufferedReader(fileReader);
                 AuthToken.token = reader.readLine();
                 AuthToken.username = reader.readLine();
+                AuthToken.userId = Integer.parseInt(reader.readLine());
             }
         }
         catch (IOException e) {
