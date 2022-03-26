@@ -36,6 +36,7 @@ public class TalkApi extends RestApi {
                     .header("Authorization", AuthToken.getToken())
                     .asJson();
             Type talkListType = new TypeToken<ArrayList<Talk>>(){}.getType();
+            System.out.println(jsonResponse.getBody().toString());
             return new Gson().fromJson(jsonResponse.getBody().toString(), talkListType);
         } catch (UnirestException e) {
             e.printStackTrace();
@@ -104,6 +105,21 @@ public class TalkApi extends RestApi {
             HttpResponse<JsonNode> jsonResponse
                     = Unirest.delete(getUrl(String.format("talks/%d", talk.getId())))
                     .header("Authorization", AuthToken.getToken())
+                    .asJson();
+            return true;
+        } catch (UnirestException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean removeMessage(Talk talk, Message message) {
+        try {
+            HttpResponse<JsonNode> jsonResponse
+                    = Unirest.delete(getUrl(String.format("talks/%d/messages", talk.getId())))
+                    .header("Authorization", AuthToken.getToken())
+                    .field("messageId", message.getId())
+                    .field("talkId", talk.getId())
                     .asJson();
             return true;
         } catch (UnirestException e) {

@@ -5,28 +5,20 @@ import messenger.app.messenger.servers.AuthToken;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 public class Talk {
     int id;
-    String title = null;
-    TalkType type = TalkType.privateTalk;
-    String imagePath = null;
-    String creationDateTime = null;
+    String title;
+    int type;
+    String imagePath;
+    String creationDateTime ;
 
     TalkUser[] talkUsers = {};
 
-    Talk ( int id, String title, TalkType type, String imagePath, String creationDateTime, TalkUser[] talkUsers) {
-        this.id = id;
-        this.title = title;
-        this.type = type;
-        this.imagePath = imagePath;
-        this.creationDateTime = creationDateTime;
-        this.talkUsers = talkUsers;
-    }
-
     @Override
     public String toString() {
-        return title != null ? title : getNotCurrentUser()[0].toString();
+        return getTitle();
     }
 
     public TalkUser[] getNotCurrentUser() {
@@ -37,7 +29,40 @@ public class Talk {
         return id;
     }
 
+    public TalkType getType() {
+        return TalkType.fromOrdinal(type);
+    }
+
+    public TalkUser[] getTalkUsers() {
+        return talkUsers;
+    }
+
     public String getTitle() {
-        return title;
+        return title != null ? title : getNotCurrentUser()[0].toString();
+    }
+
+    public boolean checkIfUserAdmin(int userId) {
+        return (Arrays.stream(talkUsers)
+                .filter(userInTalk -> userInTalk.getStatus() == UserStatus.admin && userInTalk.getUserId() == userId)
+                .toArray().length != 0);
+    }
+
+    public User getTalkUser(int userId) {
+        Stream<TalkUser> talkUsers = Arrays.stream(this.talkUsers)
+                .filter(userInTalk -> userInTalk.getUserId() == userId);
+        return talkUsers.findFirst().get().getUser();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Talk talk = (Talk) o;
+        return id == talk.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

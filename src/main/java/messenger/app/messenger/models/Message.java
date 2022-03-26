@@ -6,6 +6,7 @@ public class Message {
     String sendDateTime;
     int talkId;
     int userId;
+    User user;
 
     @Override
     public String toString() {
@@ -19,4 +20,11 @@ public class Message {
     public int getUserId() {
         return userId;
     }
+    public int getId() {
+        return id;
+    }
+
+   public void setUser(User user) {
+
+   }
 }

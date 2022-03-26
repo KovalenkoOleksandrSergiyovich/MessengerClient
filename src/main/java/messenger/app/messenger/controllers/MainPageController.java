@@ -8,7 +8,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import messenger.app.messenger.models.Talk;
 import messenger.app.messenger.servers.TalkApi;
 import messenger.app.messenger.servers.TalkConfirmService;
@@ -26,7 +25,6 @@ public class MainPageController extends IBaseController {
     public ListView<Talk> talkListView = new ListView<Talk>();
 
     @FXML
-    public VBox messagesView;
     public ScrollPane mainPane;
 
     @FXML
@@ -41,11 +39,13 @@ public class MainPageController extends IBaseController {
     protected void onMainPageLoad() {
         Pane createTalk = ScreenController.getScreen("create-talk");
         mainPane.setContent(createTalk);
+        createTalk.prefWidthProperty().bind(mainPane.widthProperty());
         ScreenController.callInitControllerMethod("create-talk");
     }
 
     private void loadTalks() {
         ArrayList<Talk> talkList = apiService.getUserTalks();
+        System.out.println(talkList);
         ObservableList<Talk> items = FXCollections.observableArrayList (talkList);
         talkListView.setItems(items);
         addContestMenuToItems();
@@ -94,13 +94,17 @@ public class MainPageController extends IBaseController {
     }
 
     public void onListClick(MouseEvent mouseEvent) {
+        Talk selectedTalk = talkListView.getSelectionModel().getSelectedItem();
         if (TalksStore.getActiveTalk() != null) {
             talkWebSocket.onLeaveTalk(TalksStore.getActiveTalk());
         }
-        TalksStore.setActiveTalk(talkListView.getSelectionModel().getSelectedItem());
-        Pane createTalk = ScreenController.getScreen("talk");
-        mainPane.setContent(createTalk);
-        ScreenController.callInitControllerMethod("talk");
+        if (TalksStore.getActiveTalk() == null || !TalksStore.getActiveTalk().equals(selectedTalk)) {
+            TalksStore.setActiveTalk(talkListView.getSelectionModel().getSelectedItem());
+            Pane createTalk = ScreenController.getScreen("talk");
+            mainPane.setContent(createTalk);
+            createTalk.prefWidthProperty().bind(mainPane.widthProperty());
+            ScreenController.callInitControllerMethod("talk");
+        }
     }
 
     public void onLogOutClick(ActionEvent actionEvent) {

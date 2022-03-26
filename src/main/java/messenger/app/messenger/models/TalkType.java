@@ -9,4 +9,7 @@ public enum TalkType {
     public int getResponse() {
         return value;
     }
+
+    private static TalkType[] allValues = values();
+    public static TalkType fromOrdinal(int n) {return allValues[n];}
 }

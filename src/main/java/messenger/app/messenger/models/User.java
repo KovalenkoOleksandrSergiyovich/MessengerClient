@@ -11,7 +11,6 @@ public class User {
     }
 
     public int getId() {
-        System.out.printf(String.valueOf(id));
         return id;
     }
 
