@@ -36,7 +36,6 @@ public class TalkApi extends RestApi {
                     .header("Authorization", AuthToken.getToken())
                     .asJson();
             Type talkListType = new TypeToken<ArrayList<Talk>>(){}.getType();
-            System.out.println(jsonResponse.getBody().toString());
             return new Gson().fromJson(jsonResponse.getBody().toString(), talkListType);
         } catch (UnirestException e) {
             e.printStackTrace();

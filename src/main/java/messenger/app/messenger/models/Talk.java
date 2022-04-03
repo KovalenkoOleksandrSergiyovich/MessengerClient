@@ -5,6 +5,7 @@ import messenger.app.messenger.servers.AuthToken;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 public class Talk {
@@ -38,7 +39,7 @@ public class Talk {
     }
 
     public String getTitle() {
-        return title != null ? title : getNotCurrentUser()[0].toString();
+        return title != null && !title.isEmpty() ? title : getNotCurrentUser()[0].toString();
     }
 
     public boolean checkIfUserAdmin(int userId) {
@@ -50,7 +51,8 @@ public class Talk {
     public User getTalkUser(int userId) {
         Stream<TalkUser> talkUsers = Arrays.stream(this.talkUsers)
                 .filter(userInTalk -> userInTalk.getUserId() == userId);
-        return talkUsers.findFirst().get().getUser();
+        Optional<TalkUser> user = talkUsers.findFirst();
+        return user.map(TalkUser::getUser).orElse(null);
     }
 
     @Override

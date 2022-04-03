@@ -19,7 +19,6 @@ public class AuthApi extends RestApi {
                     .field("password", password)
                     .asJson();
             LoginResponse loginResponse =  new Gson().fromJson(jsonResponse.getBody().toString(), LoginResponse.class);
-            System.out.print(jsonResponse.getBody().toString());
             AuthToken.setTokenAndName(loginResponse.getAccessToken(), loginResponse.getUser());
             ScreenController.activate("main");
             return true;

@@ -45,7 +45,6 @@ public class MainPageController extends IBaseController {
 
     private void loadTalks() {
         ArrayList<Talk> talkList = apiService.getUserTalks();
-        System.out.println(talkList);
         ObservableList<Talk> items = FXCollections.observableArrayList (talkList);
         talkListView.setItems(items);
         addContestMenuToItems();

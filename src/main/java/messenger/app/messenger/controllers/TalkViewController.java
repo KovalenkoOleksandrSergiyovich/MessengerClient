@@ -91,11 +91,29 @@ public class TalkViewController extends IBaseController {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    messages.add(message);
                     addToList(message);
                 }
             });
 
         });
+
+        talkWebSocket.listenToRemoveMessage(data -> {
+            Message message = new Gson().fromJson(((JSONObject) data[0]).toString(), Message.class);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    removeMessageFromList(message);
+                }
+            });
+
+        });
+    }
+
+    public void removeMessageFromList(Message message) {
+        messages.removeIf(msg -> msg.getId() == message.getId());
+        messagesList.getChildren().clear();
+        messages.forEach(this::addToList);
     }
 
     private void addToList(Message message) {
@@ -109,12 +127,10 @@ public class TalkViewController extends IBaseController {
         if (currentTalk.getType() == TalkType.publicTalk) {
             User messengerWriter = currentTalk.getTalkUser(message.getUserId());
             Label userNameLabel = new Label();
-            userNameLabel.setText(messengerWriter.getUsername());
+            userNameLabel.setText(messengerWriter != null ? messengerWriter.getUsername() : "visitor");
             userNameLabel.setPadding(new Insets(3, 10, 3, 0));
             userNameLabel.setTextFill(Color.rgb(205,205,205));
             messageBox.getChildren().add(userNameLabel);
-        } else {
-
         }
         messageContainer.setText(message.getText());
         messageContainer.setPadding(new Insets(3, 5, 3, 5));
@@ -136,7 +152,7 @@ public class TalkViewController extends IBaseController {
             deleteItem.textProperty().bind(Bindings.format("Remove message"));
             deleteItem.setOnAction(event -> {
                 if (new TalkConfirmService().confirmRemoveMessage(currentTalk, message)) {
-                    messagesList.getChildren().remove(messageContainer);
+                    talkWebSocket.onRemoveMessage(currentTalk, message.getId());
                 }
             });
             contextMenu.getItems().addAll(deleteItem);
