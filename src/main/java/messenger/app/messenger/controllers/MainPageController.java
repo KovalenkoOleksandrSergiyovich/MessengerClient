@@ -36,7 +36,7 @@ public class MainPageController extends IBaseController {
         loadTalks();
     }
 
-    protected void onMainPageLoad() {
+    protected void openCreateTalkPage() {
         Pane createTalk = ScreenController.getScreen("create-talk");
         mainPane.setContent(createTalk);
         createTalk.prefWidthProperty().bind(mainPane.widthProperty());
@@ -83,7 +83,8 @@ public class MainPageController extends IBaseController {
     }
 
     public void onCreateTalkButtonClick(ActionEvent actionEvent) {
-        onMainPageLoad();
+        leaveTalk();
+        openCreateTalkPage();
     }
 
     @Override
@@ -94,9 +95,7 @@ public class MainPageController extends IBaseController {
 
     public void onListClick(MouseEvent mouseEvent) {
         Talk selectedTalk = talkListView.getSelectionModel().getSelectedItem();
-        if (TalksStore.getActiveTalk() != null) {
-            talkWebSocket.onLeaveTalk(TalksStore.getActiveTalk());
-        }
+        leaveTalk();
         if (TalksStore.getActiveTalk() == null || !TalksStore.getActiveTalk().equals(selectedTalk)) {
             TalksStore.setActiveTalk(talkListView.getSelectionModel().getSelectedItem());
             Pane createTalk = ScreenController.getScreen("talk");
@@ -106,7 +105,14 @@ public class MainPageController extends IBaseController {
         }
     }
 
+    private void leaveTalk() {
+        if (TalksStore.getActiveTalk() != null) {
+            talkWebSocket.onLeaveTalk(TalksStore.getActiveTalk());
+        }
+    }
+
     public void onLogOutClick(ActionEvent actionEvent) {
+        leaveTalk();
         ScreenController.activate("auth");
     }
 }
